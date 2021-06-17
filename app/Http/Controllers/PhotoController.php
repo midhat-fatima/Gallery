@@ -27,9 +27,17 @@ class PhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('photo/add_photo');
+        $categories = Category::all();
+
+        $categoriesData = array();
+        foreach( $categories as $category )
+        {            
+            $temp = $category->category_name;
+            $categoriesData[$category->id] = $temp; 
+        }
+        return view('photo/add_photo', ['add_photo' => $categoriesData]);
     }
 
     /**
@@ -40,11 +48,18 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->photo);
-        $photo = Photo::create([
-            'photo' => $request->photo,
-            'category_id' => $request->category_id,
-        ]);
+        if($request->has('photo'))
+        {
+            $photo = $request->file('photo');
+            $fileDirectory  = time() . '.' . $photo->getClientOriginalExtension();
+            $path   =   public_path('/uploads');
+            $photo->move($path,$fileDirectory);
+
+            $photo = new Photo;
+            $photo->photo = $request->photo;
+            $photo->category_id = $request->category_id;
+            $photo->save();
+        }
         
         return redirect(route('photo.index'))->with(['success' => 'photo is added!!!!']);
     }
@@ -66,7 +81,7 @@ class PhotoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $photo = Photo::where('id', $id)->first();
         $categories = Category::all();
@@ -89,46 +104,25 @@ class PhotoController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        // Photo::where('id', $id)->update([
-            
-        //     'photo' => $request->photo,
-        //     'category_id' => $request->category_id,
-        // ]);
-
-        $rules = [
-            'photo' => 'mimes:jpg,jpeg,png',
-            'category_id' => 'required',
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-        
-        if($validator->fails())
+        if($request->has('photo'))
         {
-            $messages     = $validator->messages();
-            return redirect()->back()->withInput()->withErrors($messages);
+            $photo = $request->file('photo');
+            $fileDirectory  = time() . '.' . $photo->getClientOriginalExtension();
+            $path   =   public_path('/uploads');
+            $photo->move($path,$fileDirectory);
+
+            $photo = new Photo;
+            $photo->photo = $request->photo;
+            $photo->category_id = $request->category_id;
+            $photo->save();
         }
-    
-            $photo = '';
-    
-            if($request->has('photo'))
-            {
-                $fileDirectory          = 'uploads';
-    
-                $path = 'public/'.$fileDirectory;
-    
-                File::isDirectory($path) or File::makeDirectory($path, 777, true, true);
-    
-                $photo = $request->photo->store($path);
-            }
-    
-            $save_data          = new Content();
+        
+        Photo::where('id', $id)->update([
 
-            $save_data->photo  = $photo;
-    
-            $save_data->save();
+            'photo' => $request->photo,
+            'category_id' => $request->category_id,
+        ]);
 
-    
         return redirect(route('photo.index'))->with(['success' => 'photo is updated!!!!']);
     }
 
