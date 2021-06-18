@@ -14,4 +14,7 @@ class Photo extends Model
         'photo',
         'category_id',
     ]; 
+    public function category(){
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }

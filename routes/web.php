@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -25,3 +25,10 @@ require __DIR__.'/auth.php';
 
 Route::resource('categories', 'CategoryController');
 Route::resource('photo', 'PhotoController');
+
+// Route::get('/', function() {
+//     return view('gallery/gallery', 'GalleryController@index')->name('gallery.index');
+// });
+
+Route::get('/gallery', 'GalleryController@index')->name('gallery.index');
+Route::get('/gallery/{id}', 'GalleryController@show')->name('gallery.show');

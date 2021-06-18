@@ -56,7 +56,7 @@ class PhotoController extends Controller
             $photo->move($path,$fileDirectory);
 
             $photo = new Photo;
-            $photo->photo = $request->photo;
+            $photo->photo = $fileDirectory;
             $photo->category_id = $request->category_id;
             $photo->save();
         }
@@ -111,18 +111,10 @@ class PhotoController extends Controller
             $path   =   public_path('/uploads');
             $photo->move($path,$fileDirectory);
 
-            $photo = new Photo;
-            $photo->photo = $request->photo;
-            $photo->category_id = $request->category_id;
-            $photo->save();
+            $photo = Photo::where('id', $id)->update([ 
+                'photo' => $fileDirectory,
+            ]);
         }
-        
-        Photo::where('id', $id)->update([
-
-            'photo' => $request->photo,
-            'category_id' => $request->category_id,
-        ]);
-
         return redirect(route('photo.index'))->with(['success' => 'photo is updated!!!!']);
     }
 
