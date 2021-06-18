@@ -17,7 +17,7 @@
                         <ul>
                             <li>Id : {{$item->id}}<li>
                             <li>Title : {{$item->category_name}}<li>
-                            <!-- <li>Content : {{$item->content}}<li> -->
+                            
                             <li>{!! Form::open(array('url'=> route('categories.edit', ['category'=> $item->id]), 'method' => 'get')) !!}
                                     {!! Form::submit('Edit', array('style' => 'padding:5px; background-color:grey; color:white; border-radius:10px;')) !!}
                                     {!! Form::close() !!}

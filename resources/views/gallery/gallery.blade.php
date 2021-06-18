@@ -13,7 +13,6 @@
                         @foreach ($categories as $item)
                             <ul>
                                 <a href="{{ route('gallery.show', ['id' => $item->id]) }}">{{$item->category_name}}</a>
-                                <!-- <li>Content : {{$item->content}}<li> -->
                             </ul>
                         @endforeach
                     @endif
@@ -25,7 +24,6 @@
             @foreach($photoget as $item)
                 <ul>
                 <li><img src="{{ asset('uploads/'.$item->photo) }}" ></li>
-                            <!-- <li>Content : {{$item->content}}<li> -->
                 </ul>
             @endforeach
         @endisset

@@ -17,7 +17,7 @@
                         <ul>
                             <li>Id : {{$item->id}}<li>
                             <li>Image : <img src="{{ asset('uploads/'.$item->photo) }}" width="100px" height="100pc"><li>
-                            <!-- <li>Content : {{$item->content}}<li> -->
+                            
                             <li>{!! Form::open(array('url'=> route('photo.edit', ['photo'=> $item->id]), 'method' => 'get', 'enctype' =>"multipart/form-data")) !!}
                                     {!! Form::submit('Edit', array('style' => 'padding:5px; background-color:grey; color:white; border-radius:10px;')) !!}
                                     {!! Form::close() !!}
