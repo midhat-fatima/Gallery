@@ -5,6 +5,16 @@
         </h2>
     </x-slot>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif	
+
     {!! Form::open(array('url' => route('photo.store'), 'method' => 'post', 'enctype' =>"multipart/form-data" )) !!}	
             {!! Form::label('photo', 'Photo :') !!}   <br>   <br>
 			    {!! Form::file('photo') !!}   <br>   <br>
