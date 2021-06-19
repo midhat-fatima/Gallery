@@ -48,6 +48,19 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'photo' => 'mimes:jpg,jpeg,png',
+            'category_id'         => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        
+        if($validator->fails())
+        {
+            $messages     = $validator->messages();
+            return redirect()->back()->withInput()->withErrors($messages);
+        }
+
         if($request->has('photo'))
         {
             $photo = $request->file('photo');
