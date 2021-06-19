@@ -19,6 +19,8 @@
                         </li>
                         </ul>
                     @endforeach
+                @else
+                    <p>Category Not Found ! </p>
                 @endif 
             </div>
         </div>
@@ -37,6 +39,8 @@
                             </ul>
                         </div>
                     @endforeach
+                @else
+                    <p>Data Not Found ! </p>
                 @endisset
             </div>
         </div>

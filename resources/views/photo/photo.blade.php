@@ -28,6 +28,8 @@
                             <br><hr><br>
                         </ul>
                     @endforeach
+                @else
+                    <p>Data Not Found !</p>
                 @endif
                 </div>
             </div>
