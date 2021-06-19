@@ -22,7 +22,7 @@
                                     {!! Form::submit('Edit', array('style' => 'padding:5px; background-color:grey; color:white; border-radius:10px;')) !!}
                                     {!! Form::close() !!}
 
-                                {!! Form::open(array('url'=> route('categories.destroy',['category'=> $item->id]), 'method' => 'delete',  'onclick' => "return confirm('Post Related To This Will Be Deleted?')",)) !!}
+                                {!! Form::open(array('url'=> route('categories.destroy',['category'=> $item->id]), 'method' => 'delete',  'onclick' => "return confirm('Photos Related To This Will Be Deleted?')",)) !!}
                                     {!! Form::submit('Delete',array('style' => 'padding:5px; background-color:red; color:white; border-radius:10px;')) !!}
                                     {!! Form::close() !!}</li>
                             <br><hr><br>
